@@ -1,5 +1,7 @@
-const DeleteButton = ({ id, setTodos }) => {
-  const handleDelete = (e) => {
+import { TodoListType } from "../TypeArchive";
+
+const DeleteButton = ({ id, setTodos }: { id: number; setTodos: React.Dispatch<React.SetStateAction<TodoListType[]>> }) => {
+  const handleDelete = (e: React.MouseEvent): void => {
     e.stopPropagation();
     setTodos((prev) => prev.filter((todo) => todo.id !== id));
   };
