@@ -1,10 +1,12 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { TodoListType } from "../lib/typeArchive";
 import React from "react";
 import { TodosContext } from "./todosContext";
 
 const TodosContextProvider = ({ children }: { children: React.ReactNode }) => {
-  const [todos, setTodos] = useState<TodoListType[]>([]);
+  const [todos, setTodos] = useState<TodoListType[]>(
+    JSON.parse(localStorage.getItem("todos") || "[]"),
+  );
 
   const todoCounterTotal = todos.length;
   const todoCounterCompleted = todos.filter((todo) => todo.isCompleted).length;
@@ -35,6 +37,11 @@ const TodosContextProvider = ({ children }: { children: React.ReactNode }) => {
   const handleTodoDelete = (id: number) => {
     setTodos((prev) => prev.filter((todo) => todo.id !== id));
   };
+
+  useEffect(() => {
+    localStorage.setItem("todos", JSON.stringify(todos));
+  }, [todos]);
+
 
   return (
     <TodosContext.Provider
