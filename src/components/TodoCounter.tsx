@@ -1,9 +1,10 @@
-import { TodoListType } from "../TypeArchive";
+import { useTodosContext } from "../lib/hooks";
+const TodoCounter = () => {
+  const { todoCounterTotal, todoCounterCompleted } = useTodosContext();
 
-const TodoCounter = ({todos}: {todos: TodoListType[]  }) => {
   return (
     <p className="px-6">
-      <b>{todos.filter((todo) => todo.isCompleted).length}</b> / {todos.length} todos completed
+      <b>{todoCounterCompleted}</b> / {todoCounterTotal} todos completed
     </p>
   );
 };
